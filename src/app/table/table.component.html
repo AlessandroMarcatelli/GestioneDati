@@ -1,0 +1,57 @@
+
+   <h1>REGISTRAZIONE NUOVO UTENTE</h1>
+   <div>
+        <!--associo le variabili con il .ts-->
+        <input [(ngModel)]="nome"  placeholder="Nome"> 
+        <input [(ngModel)]="cognome" placeholder="Cognome">
+        <input [(ngModel)]="indirizzo" placeholder="Indirizzo" >
+        <input [(ngModel)]="email" placeholder="Email" type="email">
+        <input [(ngModel)]="comune"  placeholder="comune">
+        <input [(ngModel)]="provincia"  placeholder="provincia">
+        <input [(ngModel)]="localita"  placeholder="localita">
+        <input [(ngModel)]="note"  placeholder="note">
+        <button (click)="aggiungiDati()" [disabled]="!(nome && cognome  && email) ">Aggiungi</button>
+  </div><br><br>
+<input [(ngModel)]="filtro" placeholder="Filtra per Nome, Cognome, Email o Comune">
+
+<table class="table">
+  <thead>
+    <tr>
+      <th (click)="cambiaOrdinamento('nome')">
+        Nome
+        <span class="freccia" *ngIf="ordinamentoColonna === 'nome'">▲</span>
+        <span class="freccia" *ngIf="ordinamentoColonna === '-nome'">▼</span>
+      </th>
+      <th (click)="cambiaOrdinamento('cognome')">
+        Cognome
+        <span class="freccia" *ngIf="ordinamentoColonna === 'cognome'">▲</span>
+        <span class="freccia" *ngIf="ordinamentoColonna === '-cognome'">▼</span>
+      </th>
+      <th (click)="cambiaOrdinamento('email')">
+        Email
+        <span class="freccia" *ngIf="ordinamentoColonna === 'email'">▲</span>
+        <span class="freccia" *ngIf="ordinamentoColonna === '-email'">▼</span>
+      </th>
+      <th (click)="cambiaOrdinamento('comune')">
+        Comune
+        <span class="freccia" *ngIf="ordinamentoColonna === 'comune'">▲</span>
+        <span class="freccia" *ngIf="ordinamentoColonna === '-comune'">▼</span>
+      </th>
+      <th>Azioni</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dato of ordinaDati(filtraDati(), ordinamentoColonna )">
+      <td>{{ dato.nome }}</td>
+      <td>{{ dato.cognome }}</td>
+      <td>{{ dato.email }}</td>
+      <td>{{ dato.comune }}</td>
+      <td>
+        <a [routerLink]="['/modifica', dato.nome]"><button>Modifica</button></a>
+        <button (click)="eliminaDato(dato)">Elimina</button>        
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  
